@@ -21,7 +21,7 @@
       <h1 class="title">Chuck Norris Jokes</h1>
       <p>Reload for another joke!</p>
 
-      <div class="content" id="chuck-norris">
+      <div class="content" id="chuck">
       </div>
     </div>
 
@@ -32,6 +32,32 @@
   <script>
 
   </script>
+
+  <script>
+// This function loads chuck data from the chuck API
+function fetchChuckJSON() {
+  // Feel free to download this HTML and edit it, to use another chuck ID
+  const chucId = 1;
+  const url = `https://api.chucknorris.io/jokes/random`;
+  axios.get(url)
+    .then(function(response) {
+      return response.data; // SUBTLE difference with Fetch: response.data instead of response.json()
+    })
+    .then(function(Chuck) {
+      console.log('data decoded from JSON:', Chuck);
+
+      // Build a block of HTML
+      const chuckHTML = `
+      <img src="${chuck.icon_url}" />
+        <p>${Chuck.value}</p>
+      `;
+      document.querySelector('#chuck').innerHTML = chuckHTML;
+    });
+}
+
+fetchChuckJSON();
+</script>
+
 </body>
 
 </html>
